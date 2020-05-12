@@ -6,29 +6,7 @@ import axios from '../config/axios';
 
 const Home = () => {
 
-  const [products, setProducts] = useState([
-    { 
-      id: 1,
-      name: "Producto 1", 
-      image: "https://dummyimage.com/400x500/b58bb5/0011ff.png",
-      details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, ab distinctio aliquid amet in cupiditate? Illo odio labore corporis porro maiores praesentium minima, quibusdam, incidunt molestias modi possimus soluta impedit?",
-      price : 20
-    },
-    { 
-      id: 2,
-      name: "Producto 2", 
-      image: "https://dummyimage.com/400x500/b58bb5/0011ff.png",
-      details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, ab distinctio aliquid amet in cupiditate? Illo odio labore corporis porro maiores praesentium minima, quibusdam, incidunt molestias modi possimus soluta impedit?",
-      price : 20
-    },
-    { 
-      id: 4,
-      name: "Producto 3", 
-      image: "https://dummyimage.com/400x500/b58bb5/0011ff.png",
-      details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, ab distinctio aliquid amet in cupiditate? Illo odio labore corporis porro maiores praesentium minima, quibusdam, incidunt molestias modi possimus soluta impedit?",
-      price : 20
-    }
-  ])
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
     
@@ -37,7 +15,7 @@ const Home = () => {
       try {
 
         const { data } = await axios.get("/products?per_page=3")
-        console.log(data);
+        setProducts(data)
 
       } catch (error) {
         console.log(error);
