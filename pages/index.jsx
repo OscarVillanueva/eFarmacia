@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import Product from '../components/Product';
+import woo from '../config/woo';
 
 const Home = () => {
 
@@ -28,6 +29,35 @@ const Home = () => {
       price : 20
     }
   ])
+
+  useEffect(() => {
+    
+    const fetchApi = async () => {
+      
+      try {
+
+        // const url = "https://dev-topstore.pantheonsite.io/wp-json/wc/v3/products?per_page=3"
+        // const username = "ck_585f4a010018c5f8df53c6cb36d4dedcb83663ba"
+        // const password = "cs_c581aa162f7857daa7bda08ba35eca19821dac0d"
+        // const headers = new Headers()
+        // headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
+
+        // const result = await fetch(url, { method: "GET", headers: headers })
+        // const json = await result.json()
+        // console.log(json);
+        // const result = await woo.get("products")
+        // console.log(result);
+        console.log(woo);
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    fetchApi()
+
+  }, [])
 
   return (
     <Layout>
