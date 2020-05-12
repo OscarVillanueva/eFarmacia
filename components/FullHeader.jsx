@@ -1,4 +1,6 @@
 import React from 'react';
+import Search from './Search';
+import Nav from './Navigation';
 
 const FullHeader = () => {
     return ( 
@@ -8,9 +10,19 @@ const FullHeader = () => {
                 className = "site-full-header"
             >
                 <div className="layer">
-                    <p>Header</p>
+
+                    <Nav />
+
                     <div className="flex flex-col h-screen justify-center items-center">
-                        <h1 className = "text-gray-200">Te sientes mal . . . </h1>
+                        <h1 className = "p-8 sm:p-0 text-center sm:text-left text-gray-200 text-4xl capitalize">
+                            siempre contigo,
+                            <span className = "font-black text-orange-700 normal-case"> eFarmacia </span>
+                        </h1>
+
+                        <Search 
+                            margin = "4"
+                        />
+
                     </div>
                 </div>
             </div>
@@ -26,7 +38,7 @@ const FullHeader = () => {
                 }
 
                 .layer { 
-                    background-color: rgba(15, 15, 15, 0.6);
+                    background-color: rgba(15, 15, 15, 0.9);
                     position: absolute;
                     top: 0;
                     left: 0;
