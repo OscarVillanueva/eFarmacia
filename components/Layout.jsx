@@ -1,8 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from "next/router";
 import FullHeader from './FullHeader';
+import Nav from './Navigation';
 
 const Layout = ({ children }) => {
+
+    const router = useRouter()
+
     return ( 
         <>
             <Head>
@@ -11,13 +16,30 @@ const Layout = ({ children }) => {
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/>
             </Head>
 
-            <FullHeader />
 
-            <div className="bg-gray-200h.screen">
-                <main className="w-4/5 mx-auto">
-                    { children }
-                </main>
-            </div>
+            <header>
+                { router.pathname === "/" 
+                    ? (
+                        <FullHeader />
+                    ) 
+                    : (
+                        <Nav full />
+                    )
+                }
+            </header>
+
+
+            <main className="w-4/5 mx-auto">
+                { children }
+            </main>
+
+            <footer>
+                <Nav full />
+                <p className = "py-4 bg-gray-200 text-center mb-0">
+                    Todos los derechos reservados &copy; 
+                    { " " + new Date().getFullYear() }
+                </p>
+            </footer>
 
         </>
     );
