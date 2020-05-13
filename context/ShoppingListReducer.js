@@ -4,10 +4,11 @@ export default (state, action) => {
     switch (action.type) {
 
         case ADD_PRODUCT: {
-            localStorage.setItem("products", JSON.stringify( [action.payload, ...state.products] ))
+            
             return {
                 ...state,
-                products: [action.payload, ...state.products]
+                products: [action.payload, ...state.products],
+                total: state.total + Number(action.payload.price)
             }
         }
 

@@ -15,6 +15,10 @@ const ShoppingListState = ({ children }) => {
 
     // Agregar un producto al Carrito de compras
     const addProduct = (product) => {
+
+        const products = [ product, ...state.products ]
+        localStorage.setItem("products", JSON.stringify( products ))
+
         dispatch({
             type: ADD_PRODUCT,
             payload: product
@@ -32,7 +36,7 @@ const ShoppingListState = ({ children }) => {
 
         dispatch({
             type: LOAD_PRODUCTS,
-            payload: products
+            payload: products ? products : []
         })
 
     }
