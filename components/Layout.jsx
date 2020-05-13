@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
                         <FullHeader />
                     ) 
                     : (
-                        <Nav full position = { true }/>
+                        <Nav full top/>
                     )
                 }
             </header>
@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
             </main>
 
             <footer>
-                <Nav full position = { false }/>
+                <Nav full />
                 <p className = "py-4 bg-gray-200 text-center mb-0">
                     Todos los derechos reservados &copy; 
                     { " " + new Date().getFullYear() }

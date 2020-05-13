@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import ShoppingListContext from '../context/ShoppingListContext';
 
-const ShoppingList = ({ full, position }) => {
-
-    // Position true -> arriba
-    // Position false -> abajo
+const ShoppingList = ({ full, top }) => {
 
     // Componente que me indica el color del carrito en pantalla
     const [clasess, setClases] = useState("text-gray-800 w-8 h-8")
@@ -13,9 +10,6 @@ const ShoppingList = ({ full, position }) => {
     // Importamos el context con los productos
     const shoppingListContext = useContext(ShoppingListContext)
     const { products } = shoppingListContext
-
-    // Referencia al icono del carrito
-    const iconList = useRef(null)
 
     // Una vez cargado el componte, verificar las clases
     useEffect(() => {
@@ -66,13 +60,15 @@ const ShoppingList = ({ full, position }) => {
                         </a>
                     </Link>
 
+                    { products.length > 0 && (
+                        <div 
+                            className={`rounded mb-1 p-3 bg-gray-200 text-gray-900 summary 
+                            ${top ? "topleft" : "bottomleft"} `}
+                        >
+                            <h1>Hola</h1>
+                        </div>
+                    )}
 
-                    <div 
-                        className={`rounded mb-1 p-3 bg-gray-200 text-gray-900 summary 
-                        ${position ? "topleft" : "bottomleft"} `}
-                    >
-                        <h1>Hola</h1>
-                    </div>
 
             </div>
 

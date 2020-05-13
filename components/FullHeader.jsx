@@ -22,7 +22,7 @@ const FullHeader = () => {
             >
                 <div className="layer">
 
-                    <Nav position = { true } />
+                    <Nav top />
 
                     <div className="flex flex-col h-screen justify-center items-center">
                         <h1 className = "p-8 sm:p-0 text-center sm:text-left text-gray-200 text-4xl capitalize">

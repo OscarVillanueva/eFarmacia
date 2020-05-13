@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Search from './Search';
 import ShoppingList from './ShoppingList';
 
-const Nav = ({ full, position }) => {
+const Nav = ({ full, top }) => {
 
     return ( 
         <div
@@ -39,7 +39,7 @@ const Nav = ({ full, position }) => {
                     </a>
                 </Link>
 
-                <ShoppingList full = { full } position = { position } />
+                <ShoppingList full = { full } top = { top } />
                 
             </div>
 
