@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import axios from '../config/axios';
 import Layout from '../components/Layout';
@@ -13,6 +14,7 @@ const Search = () => {
     const { query: { q } } = router
 
     // Evitar que se haga la doble petición
+    const [queryChange, setQueryChange] = useState(true)
 
     // State de los productos
     const [products, setProducts] = useState([])
@@ -29,13 +31,25 @@ const Search = () => {
 
     useEffect(() => {
         
+        // Indicamos que se cambio el query para evitar que se ejecute, el effect de page
+        setQueryChange(true)
+        
+        // Cambiamos el page para que inicie desde la 1
+        setCurrentPage(1)
+
+        // Traemos los datos
         fetchApi(q, 1)
+
+        // Indicamos que ya podemos usar el paginador
+        setQueryChange(false)
 
     }, [q])
 
     useEffect(() => {
 
-        fetchApi(q, currentPage)
+        // Prevenimos una doble consulta proveniente del effect de arriba
+        if(!queryChange)
+            fetchApi(q, currentPage)
 
     }, [currentPage])
 
@@ -67,12 +81,14 @@ const Search = () => {
         <Layout>
 
             {/* referenciamos a este h1 a querySelector -> querySelector("h1"), como la parte de adentro del querySelector */}
-            <h1 
-                className = "my-4 text-4xl text-gray-800 text-center"
-                ref = { title }
-            >
-                Productos
-            </h1>
+            <Link href = "/products">
+                <a
+                    className = "block my-4 text-4xl text-gray-800 text-center"
+                    ref = { title }
+                >
+                    Productos
+                </a>
+            </Link>
 
             { loading 
                 ? (
@@ -110,11 +126,21 @@ const Search = () => {
                                 </>
                             ) : (
                                 <div className="flex flex-col h-64 my-24 justify-center items-center">
-                                    <h1 
-                                        className = " shadow-lg text-gray-800 text-3xl bg-gray-200 p-6 rounded"
-                                    >
-                                        No se encontrarón coincidencias
-                                    </h1>
+                                    <div className = "flex flex-col items-center shadow-lg bg-gray-200 p-6 rounded">
+                                        <h1 
+                                            className = "text-gray-800 text-3xl"
+                                        >
+                                            No se encontrarón coincidencias
+                                        </h1>
+    
+                                        <svg 
+                                            className = "h-32 w-32 text-orange-700"
+                                            fill="none" strokeLinecap="round" 
+                                            strokeLinejoin="round" 
+                                            strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
                                 </div>
                             )
                         }
