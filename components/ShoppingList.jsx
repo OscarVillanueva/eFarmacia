@@ -111,7 +111,6 @@ const ShoppingList = ({ full, position }) => {
                     top: -120%;
                     right: 100%; 
                 }
-
                 
             `}</style>
     

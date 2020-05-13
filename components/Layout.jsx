@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
                         <FullHeader />
                     ) 
                     : (
-                        <Nav full />
+                        <Nav full position = { true }/>
                     )
                 }
             </header>
