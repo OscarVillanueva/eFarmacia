@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
             </main>
 
             <footer>
-                <Nav full />
+                <Nav full position = { false }/>
                 <p className = "py-4 bg-gray-200 text-center mb-0">
                     Todos los derechos reservados &copy; 
                     { " " + new Date().getFullYear() }
