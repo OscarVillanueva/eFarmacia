@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Router from 'next/router';
 
 const Search = ({ margin }) => {
+
+    const [search, setSearch] = useState("")
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if( search.trim() !== "" ){
+            Router.push({
+                pathname: "/search",
+                query: { "q": search }
+            })
+        }
+    }
+
     return ( 
-        <form className = {`w-11/12 sm:w-3/5 mb-4 sm:mb-0 sm:mt-${margin} relative`}>
+        <form 
+            onSubmit = { handleSubmit }
+            className = {`w-11/12 sm:w-3/5 mb-4 sm:mb-0 sm:mt-${margin} relative`}
+        >
             <input 
                 className = "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:bg-white"
                 type="text" 
                 name="search" 
                 id="search"
+                onChange = { e => setSearch(e.target.value) }
                 placeholder = "Buscar producto . . ."
             />
 
