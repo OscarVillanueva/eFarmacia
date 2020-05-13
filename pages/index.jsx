@@ -6,6 +6,7 @@ import axios from '../config/axios';
 
 const Home = () => {
 
+  // Los tres productos que se muestran
   const [products, setProducts] = useState([])
 
   useEffect(() => {
