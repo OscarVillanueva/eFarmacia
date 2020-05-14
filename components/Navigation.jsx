@@ -39,7 +39,10 @@ const Nav = ({ full, top }) => {
                     </a>
                 </Link>
 
-                <ShoppingList full = { full } top = { top } />
+                { top && (
+                    <ShoppingList full = { full } />
+                )}
+
                 
             </div>
 

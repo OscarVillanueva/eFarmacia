@@ -1,23 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
+import Shopping from './Shopping';
 import ShoppingListContext from '../context/ShoppingListContext';
 
-const ShoppingList = ({ full, top }) => {
+const ShoppingList = ({ full }) => {
 
     // Componente que me indica el color del carrito en pantalla
     const [clasess, setClases] = useState("text-gray-800 w-8 h-8")
 
     // Importamos el context con los productos
     const shoppingListContext = useContext(ShoppingListContext)
-    const { products } = shoppingListContext
+    const { products, total } = shoppingListContext
 
     // Una vez cargado el componte, verificar las clases
     useEffect(() => {
 
         defineCarColor()
-
-        // if(products.length === 0) console.log("No tiene nada");
-        // else console.log("Si tiene", products);
 
     }, [products])
 
@@ -61,12 +59,44 @@ const ShoppingList = ({ full, top }) => {
                     </Link>
 
                     { products.length > 0 && (
-                        <div 
-                            className={`rounded mb-1 p-3 bg-gray-200 text-gray-900 summary 
-                            ${top ? "topleft" : "bottomleft"} `}
-                        >
-                            <h1>Hola</h1>
+
+                        <div className = "rounded summary">
+                            <div 
+                                className = 'rounded-t p-3 bg-gray-200'
+                            >
+                                <h1
+                                    className = "text-gray-800 mb-2 font-black uppercase"
+                                >
+                                    Carrito de compras
+                                </h1>
+    
+                                {products.map(product => (
+                                    <Shopping
+                                        key = {product.id}
+                                        product = { product }
+                                    />
+                                ))}
+    
+                            </div>
+                            
+                            <div 
+                                className = "border-gray-400 border-t p-4 bg-gray-400 rounded-b"
+                            >
+                                <div className="flex justify-center mb-2">
+                                    <p className = "text-xl text-gray-800 mr-2">Total: </p>
+                                    <p className = "text-xl text-orange-700 font-black">${total}</p>
+                                </div>
+                                
+                                <Link href = "/wishlist">
+                                    <a 
+                                        className = "px-4 py-2 w-full bg-orange-700 block rounded text-gray-200"
+                                    >
+                                        ¡Comprar!
+                                    </a>
+                                </Link>
+                            </div>
                         </div>
+                        
                     )}
 
 
@@ -91,23 +121,20 @@ const ShoppingList = ({ full, top }) => {
                     width: 120px;
                     text-align: center;
                     
-                    width: 10rem;
+                    width: 20rem;
+
+                    top: 60%;
+                    right: 80%; 
                 
                     /* Position the tooltip */
                     position: absolute;
                     z-index: 9999999999;
                 }
 
-                .topleft {
-                    top: -1;
-                    right: 100%; 
+                .h-70 {
+                    height: 35rem;
                 }
 
-                .bottomleft {
-                    top: -120%;
-                    right: 100%; 
-                }
-                
             `}</style>
     
         </>
