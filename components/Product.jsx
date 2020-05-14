@@ -9,13 +9,12 @@ const Product = ({ product }) => {
     const shoppingListContext = useContext(ShoppingListContext)
     const { addProduct } = shoppingListContext
 
-    const { id, name, description, price, images: [ image ] } = product
+    const { name, description, price, images: [ image ] } = product
 
     // Quitamos <p></p> que vienen por defecto de la API
     const cleanDescription = description.replace(/<p>|<\/p>/g, "")
 
     const handleClick = () => {
-        console.log(product);
         addProduct( product )
         Swal.fire(
             'Éxito',

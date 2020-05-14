@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import Head from 'next/head';
 import { useRouter } from "next/router";
+import ShoppingListContext from '../context/ShoppingListContext';
 import FullHeader from './FullHeader';
 import Nav from './Navigation';
 
 const Layout = ({ children }) => {
 
+    // Para el logo de eFarmacia
     const router = useRouter()
+
+    // Cargar el carrito de compras
+    const shoppingListContext = useContext(ShoppingListContext)
+    const { loadProducts } = shoppingListContext
+
+    useEffect(() => {
+
+        loadProducts()
+        
+    }, [])
 
     return ( 
         <>

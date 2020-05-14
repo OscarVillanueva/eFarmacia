@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import WhishListReducer from './ShoppingListReducer';
 import WhishListContext from './ShoppingListContext';
-import { ADD_PRODUCT, LOAD_PRODUCTS } from '../types';
+import { ADD_PRODUCT, LOAD_PRODUCTS, DELETE_PRODUCT } from '../types';
 
 const ShoppingListState = ({ children }) => {
 
@@ -14,15 +14,18 @@ const ShoppingListState = ({ children }) => {
     const [state, dispatch] = useReducer(WhishListReducer, initialState)
 
     // Agregar un producto al Carrito de compras
-    const addProduct = (product) => {
+    const addProduct = product => {
 
-        const products = [ product, ...state.products ]
-        localStorage.setItem("products", JSON.stringify( products ))
+        if( !state.products.includes(product) ) {
 
-        dispatch({
-            type: ADD_PRODUCT,
-            payload: product
-        })
+            let products = [ product, ...state.products ]
+            localStorage.setItem("products", JSON.stringify( products ))
+    
+            dispatch({
+                type: ADD_PRODUCT,
+                payload: product
+            })
+        }
     }
 
     // Cargar los productos
@@ -41,12 +44,23 @@ const ShoppingListState = ({ children }) => {
 
     }
 
+    // Borrar un producto del carrito
+    const deleteProduct = id => {
+        
+        dispatch({
+            type: DELETE_PRODUCT,
+            payload: id
+        })
+
+    }
+
     return ( 
         <WhishListContext.Provider
             value = {{
                 products: state.products,
                 total: state.total,
                 addProduct,
+                deleteProduct,
                 loadProducts
             }}
         >

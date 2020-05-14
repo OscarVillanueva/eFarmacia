@@ -1,18 +1,8 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import Search from './Search';
 import Nav from './Navigation';
-import ShoppingListContext from '../context/ShoppingListContext';
 
 const FullHeader = () => {
-
-    const shoppingListContext = useContext(ShoppingListContext)
-    const { loadProducts } = shoppingListContext
-
-    useEffect(() => {
-
-        loadProducts()
-        
-    }, [])
 
     return ( 
         <div className="">

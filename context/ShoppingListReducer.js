@@ -8,7 +8,7 @@ export default (state, action) => {
             return {
                 ...state,
                 products: [action.payload, ...state.products],
-                total: state.total + Number(action.payload.price)
+                // total: state.total + Number(action.payload.price)
             }
         }
 
@@ -16,6 +16,13 @@ export default (state, action) => {
             return {
                 ...state,
                 products: action.payload
+            }
+        }
+
+        case DELETE_PRODUCT: {
+            return { 
+                ...state,
+                products: state.products.filter( product => product.id !== action.payload )
             }
         }
 

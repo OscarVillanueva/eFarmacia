@@ -82,11 +82,6 @@ const ShoppingList = ({ full }) => {
                             <div 
                                 className = "border-gray-400 border-t p-4 bg-gray-400 rounded-b"
                             >
-                                <div className="flex justify-center mb-2">
-                                    <p className = "text-xl text-gray-800 mr-2">Total: </p>
-                                    <p className = "text-xl text-orange-700 font-black">${total}</p>
-                                </div>
-                                
                                 <Link href = "/wishlist">
                                     <a 
                                         className = "px-4 py-2 w-full bg-orange-700 block rounded text-gray-200"
