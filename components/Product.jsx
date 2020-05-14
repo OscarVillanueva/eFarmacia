@@ -15,7 +15,7 @@ const Product = ({ product }) => {
     const cleanDescription = description.replace(/<p>|<\/p>/g, "")
 
     const handleClick = () => {
-        addProduct( product )
+        addProduct( {...product, quantity: 1 } )
         Swal.fire(
             'Éxito',
             'Se agregado correctamente al carrito',

@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import WhishListReducer from './ShoppingListReducer';
 import WhishListContext from './ShoppingListContext';
-import { ADD_PRODUCT, LOAD_PRODUCTS, DELETE_PRODUCT } from '../types';
+import { ADD_PRODUCT, LOAD_PRODUCTS, DELETE_PRODUCT, UPDATE_TOTAL, UPDATE_PRODUCT } from '../types';
 
 const ShoppingListState = ({ children }) => {
 
@@ -18,7 +18,10 @@ const ShoppingListState = ({ children }) => {
 
         if( !state.products.includes(product) ) {
 
+            // Agregamos el producto
             let products = [ product, ...state.products ]
+
+            // Agreamos en localStorage
             localStorage.setItem("products", JSON.stringify( products ))
     
             dispatch({
@@ -47,11 +50,40 @@ const ShoppingListState = ({ children }) => {
     // Borrar un producto del carrito
     const deleteProduct = id => {
         
+        // Eliminamos
+        const products = state.products.filter( product => product.id !== id )
+
+        // Cargamos
+        localStorage.setItem("products", JSON.stringify( products ))
+
         dispatch({
             type: DELETE_PRODUCT,
-            payload: id
+            payload: products
         })
 
+    }
+
+    // Actualizar la cantidad de un producto
+    const updateTotal = () => {
+        dispatch({
+            type: UPDATE_TOTAL
+        })
+    }
+
+    // Actualizar un producto
+    const updateProduct = product => {
+
+        // Actualizamos
+        const products = state.products.map( current => current.id === product.id 
+            ? product : current)
+
+        // Cargamos
+        localStorage.setItem("products", JSON.stringify( products ))
+
+        dispatch({
+            type: UPDATE_PRODUCT,
+            payload: products
+        })
     }
 
     return ( 
@@ -61,7 +93,9 @@ const ShoppingListState = ({ children }) => {
                 total: state.total,
                 addProduct,
                 deleteProduct,
-                loadProducts
+                updateProduct,
+                loadProducts,
+                updateTotal
             }}
         >
             { children }

@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, LOAD_PRODUCTS } from "../types";
+import { ADD_PRODUCT, DELETE_PRODUCT, LOAD_PRODUCTS, UPDATE_TOTAL, UPDATE_PRODUCT } from "../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -22,7 +22,22 @@ export default (state, action) => {
         case DELETE_PRODUCT: {
             return { 
                 ...state,
-                products: state.products.filter( product => product.id !== action.payload )
+                products: action.payload
+            }
+        }
+
+        case UPDATE_TOTAL: {
+            return {
+                ...state,
+                total: state.products.reduce((previous ,product) => 
+                                            previous += product.price * product.quantity, 0)
+            }
+        }
+
+        case UPDATE_PRODUCT: {
+            return {
+                ...state,
+                products: action.payload
             }
         }
 
