@@ -12,11 +12,11 @@ const ProductBuy = ({ product }) => {
 
     const { id, name, short_description, price, images: [ image ] } = product
 
-    // Total en relación con las compras
-    const [total, seTotal] = useState(price)
-
     // Cantidad seleccionada
     const [quantity, setQuantity] = useState(product.quantity)
+
+    // Total en relación con las compras
+    const [total, seTotal] = useState(price * product.quantity)
 
     // Quitamos <p></p> que vienen por defecto de la API
     const cleanDescription = short_description.replace(/<p>|<\/p>/g, "")

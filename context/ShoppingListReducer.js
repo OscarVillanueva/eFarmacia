@@ -1,4 +1,11 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, LOAD_PRODUCTS, UPDATE_TOTAL, UPDATE_PRODUCT } from "../types";
+import { 
+    ADD_PRODUCT, 
+    DELETE_PRODUCT, 
+    LOAD_PRODUCTS, 
+    UPDATE_TOTAL, 
+    UPDATE_PRODUCT, 
+    EMPTY_CART
+} from "../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -38,6 +45,14 @@ export default (state, action) => {
             return {
                 ...state,
                 products: action.payload
+            }
+        }
+
+        case EMPTY_CART: {
+            return {
+                ...state,
+                product: [],
+                total: 0
             }
         }
 

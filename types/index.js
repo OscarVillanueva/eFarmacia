@@ -1,5 +1,6 @@
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const DELETE_PRODUCT = 'DELETE_PRODUCT'
-export const UPDATE_TOTAL = "UPDATE_TOTAL"
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT"
+export const UPDATE_TOTAL = "UPDATE_TOTAL"
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
+export const EMPTY_CART = "EMPTY_CART"

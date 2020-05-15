@@ -1,7 +1,14 @@
 import React, { useReducer } from 'react';
 import WhishListReducer from './ShoppingListReducer';
 import WhishListContext from './ShoppingListContext';
-import { ADD_PRODUCT, LOAD_PRODUCTS, DELETE_PRODUCT, UPDATE_TOTAL, UPDATE_PRODUCT } from '../types';
+import { 
+    ADD_PRODUCT, 
+    LOAD_PRODUCTS,
+    DELETE_PRODUCT, 
+    UPDATE_TOTAL, 
+    UPDATE_PRODUCT, 
+    EMPTY_CART 
+} from '../types';
 
 const ShoppingListState = ({ children }) => {
 
@@ -86,6 +93,13 @@ const ShoppingListState = ({ children }) => {
         })
     }
 
+    // Vaciar el carrito de compra
+    const emptyShoppingList = () => {
+        dispatch({
+            type: EMPTY_CART,
+        })
+    }
+
     return ( 
         <WhishListContext.Provider
             value = {{
@@ -95,7 +109,8 @@ const ShoppingListState = ({ children }) => {
                 deleteProduct,
                 updateProduct,
                 loadProducts,
-                updateTotal
+                updateTotal,
+                emptyShoppingList
             }}
         >
             { children }
