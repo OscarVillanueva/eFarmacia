@@ -95,6 +95,12 @@ const ShoppingListState = ({ children }) => {
 
     // Vaciar el carrito de compra
     const emptyShoppingList = () => {
+
+        // Eliminar de localStorage
+        localStorage.removeItem("products")
+
+        // Marcar en firebase como comprada
+
         dispatch({
             type: EMPTY_CART,
         })

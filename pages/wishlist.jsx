@@ -46,8 +46,8 @@ const WhisList = () => {
                 'success'
             )
 
-            router.push("/products")
             emptyShoppingList()
+            router.push("/products")
 
         } catch (error) {
             console.log(error);
