@@ -142,7 +142,6 @@ const ShoppingListState = ({ children }) => {
             if( snap.data() ){
 
                 const { shoppingList } = snap.data()
-                console.log(shoppingList);
     
                 if(shoppingList.length > 0) products = shoppingList
 
