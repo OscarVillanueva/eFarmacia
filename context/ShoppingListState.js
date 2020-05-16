@@ -117,6 +117,7 @@ const ShoppingListState = ({ children }) => {
         localStorage.removeItem("products")
 
         // Borrar de firebase
+        firebase.deleteDocument("shoppingCar", currentUser.uid)
 
         dispatch({
             type: EMPTY_CART,

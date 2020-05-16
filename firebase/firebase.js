@@ -34,6 +34,12 @@ class Firebase {
         return this.db.collection(collection).doc(doc).set(data, { merge })
     }
 
+    // Borrar a la base de datos
+    deleteDocument(collection, doc) {
+        console.log(doc);
+        return this.db.collection(collection).doc(doc).delete()
+    }
+
 }
 
 const firebase = new Firebase()
