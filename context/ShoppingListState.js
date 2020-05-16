@@ -29,7 +29,9 @@ const ShoppingListState = ({ children }) => {
     // Agregar un producto al Carrito de compras
     const addProduct = product => {
 
-        if( !state.products.includes(product) ) {
+        const exists = state.products.find( previos => previos.id === product.id )
+
+        if( !exists ) {
 
             // Agregamos el producto
             let products = [ product, ...state.products ]
