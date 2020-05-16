@@ -7,15 +7,15 @@ const Init = ({ Component, pageProps }) => {
     const currentUser = useAuth()
 
     return ( 
-        <ShoppingListState>
-            <FirebaseContext.Provider
-                value = {{
-                    currentUser
-                }}
-            >
+        <FirebaseContext.Provider
+            value = {{
+                currentUser
+            }}
+        >
+            <ShoppingListState>
                 <Component { ...pageProps } />
-            </FirebaseContext.Provider>
-        </ShoppingListState>
+            </ShoppingListState>
+        </FirebaseContext.Provider>
     );
 }
  

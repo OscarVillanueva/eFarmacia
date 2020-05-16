@@ -1,6 +1,8 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import WhishListReducer from './ShoppingListReducer';
 import WhishListContext from './ShoppingListContext';
+import firebase from '../firebase/firebase';
+import FirebaseContext from '../firebase/context';
 import { 
     ADD_PRODUCT, 
     LOAD_PRODUCTS,
@@ -20,6 +22,10 @@ const ShoppingListState = ({ children }) => {
 
     const [state, dispatch] = useReducer(WhishListReducer, initialState)
 
+    // Context para sacar el currentUser
+    const firebaseContext = useContext( FirebaseContext )
+    const { currentUser } = firebaseContext
+
     // Agregar un producto al Carrito de compras
     const addProduct = product => {
 
@@ -30,6 +36,9 @@ const ShoppingListState = ({ children }) => {
 
             // Agreamos en localStorage
             localStorage.setItem("products", JSON.stringify( products ))
+
+            if ( currentUser ) 
+                firebase.addDocument("shoppingCar", currentUser.uid, { shoppingList: products}, true)
     
             dispatch({
                 type: ADD_PRODUCT,

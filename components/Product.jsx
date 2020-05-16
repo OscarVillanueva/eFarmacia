@@ -6,6 +6,7 @@ const Product = ({ product }) => {
 
     if(!product || Object.keys(product).length === 0) return null
 
+    // Context el carrito de compra
     const shoppingListContext = useContext(ShoppingListContext)
     const { addProduct } = shoppingListContext
 
@@ -15,7 +16,10 @@ const Product = ({ product }) => {
     const cleanDescription = description.replace(/<p>|<\/p>/g, "")
 
     const handleClick = () => {
-        addProduct( {...product, quantity: 1 } )
+        const finalProduct = {...product, quantity: 1 }
+
+        addProduct( finalProduct )
+
         Swal.fire(
             'Éxito',
             'Se agregado correctamente al carrito',

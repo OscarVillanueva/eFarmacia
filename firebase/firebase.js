@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import "firebase/auth"
+import "firebase/firestore"
 import firebaseConfig from './config';
 
 class Firebase { 
@@ -7,6 +8,7 @@ class Firebase {
     constructor() {
         if(!app.apps.length) app.initializeApp( firebaseConfig )
         this.auth = app.auth()
+        this.db = app.firestore()
     }
 
     // registra un usuario
@@ -26,6 +28,12 @@ class Firebase {
     async signout() {
         await this.auth.signOut()
     }
+
+    // Insertar a la base de datos
+    addDocument(collection, doc, data, merge) {
+        return this.db.collection(collection).doc(doc).set(data, { merge })
+    }
+
 }
 
 const firebase = new Firebase()
