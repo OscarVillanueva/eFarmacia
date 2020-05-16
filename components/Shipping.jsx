@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup  from 'yup';
 import axios from '../config/axios';
 import ShoppingListContext from '../context/ShoppingListContext';
+import FirebaseContext from '../firebase/context';
 
 const Shipping = () => {
 
@@ -14,6 +15,10 @@ const Shipping = () => {
     // Importamos el context con los productos
     const shoppingListContext = useContext(ShoppingListContext)
     const { products, total, emptyShoppingList } = shoppingListContext
+
+    // Sacamos el usuario logeado
+    const firebaseContext = useContext( FirebaseContext )
+    const { currentUser } = firebaseContext
 
     const router = useRouter()
 
@@ -50,11 +55,13 @@ const Shipping = () => {
 
     const sendOrder = async ( shipping ) => {
 
+        const [ first_name, last_name ] = currentUser.displayName.split(" ")
+
         const data = prepareData({
             ...shipping, 
             address_2: "",
-            first_name: "Peter",
-            last_name: "Child",
+            first_name,
+            last_name,
         })
         // console.log(data);
 
