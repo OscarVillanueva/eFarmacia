@@ -41,7 +41,18 @@ const Shipping = () => {
                 .trim("Debes indicar tu código postal"),
         }),
         onSubmit: values => {
-            sendOrder( values )
+            if(currentUser)
+                sendOrder( values )
+            else {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debes iniciar sesión para hacer la compra',
+                })
+    
+                router.push("/login")
+            }
         }
     })
 

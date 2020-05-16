@@ -51,17 +51,18 @@ const ShoppingListState = ({ children }) => {
     // Cargar los productos
     const loadProducts = () => {
 
-        if ( !currentUser ){
-            console.log("desde lcoal");
-            const products = JSON.parse(localStorage.getItem("products"))
+        const products = JSON.parse(localStorage.getItem("products"))
+
+        if ( !currentUser || products){
 
             dispatch({
                 type: LOAD_PRODUCTS,
                 payload: products ? products : []
             })
+
         }
         else
-            fetchShoppingListFromFirebase()
+            fetchShoppingListFromFirebase(currentUser.uid)
     }
 
     // Borrar un producto del carrito
@@ -132,27 +133,27 @@ const ShoppingListState = ({ children }) => {
     }
 
     // Descargar el carrito de firebase
-    const fetchShoppingListFromFirebase = () => {
+    const fetchShoppingListFromFirebase = async id => {
+        
+        firebase.db.collection("shoppingCar").doc(id).onSnapshot(snap => {
+            
+            let products = []
 
-        firebase.db.collection("shoppingCar").onSnapshot( snapShot => {
+            if( snap.data() ){
 
-            const products = snapShot.docs.map(doc => {
-                return {
-                    ...doc.data()
-                }
-            })
+                const { shoppingList } = snap.data()
+                console.log(shoppingList);
+    
+                if(shoppingList.length > 0) products = shoppingList
 
-            let productList = []
-
-            if(products.length > 0) {
-                productList = products[0].shoppingList
             }
+
 
             dispatch({
                 type: LOAD_PRODUCTS,
-                payload: productList 
+                payload: products 
             })
-
+            
         })
 
     }

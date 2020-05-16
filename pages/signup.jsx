@@ -24,7 +24,7 @@ const SignUp = () => {
         },
         validationSchema: Yup.object({
             email: Yup.string().email("El email no es válido").required("El email no puede ir vació"),
-            password: Yup.string().required("El password es obligatorio").length(6, "Debes ingresar minimo 6 caracteres"),
+            password: Yup.string().required("El password es obligatorio").min(6, "Debes ingresar minimo 6 caracteres"),
             name: Yup.string().required("Tu nombre es obligatorio"),
             lastName: Yup.string().required("Tu apellido es obligatorio"),
         }),

@@ -12,7 +12,11 @@ const Nav = ({ full, top }) => {
     const { currentUser } = firebaseContext
 
     const handleClick = () => {
+        // Cerramos sesión
         firebase.signout()
+
+        // Eliminamos de localStorage si hay carrito de la sesión pasada
+        localStorage.removeItem("products")
     }
 
     return ( 
