@@ -39,8 +39,8 @@ const ShoppingListState = ({ children }) => {
             // Agreamos en localStorage
             localStorage.setItem("products", JSON.stringify( products ))
 
-            if ( currentUser ) 
-                firebase.addDocument("shoppingCar", currentUser.uid, { shoppingList: products}, true)
+            // Actulizamos el carrito en firebase
+            updateFirebase( products )
     
             dispatch({
                 type: ADD_PRODUCT,
@@ -74,6 +74,9 @@ const ShoppingListState = ({ children }) => {
         // Cargamos
         localStorage.setItem("products", JSON.stringify( products ))
 
+        // Actulizamos el carrito en firebase
+        updateFirebase( products )
+
         dispatch({
             type: DELETE_PRODUCT,
             payload: products
@@ -98,6 +101,9 @@ const ShoppingListState = ({ children }) => {
         // Cargamos
         localStorage.setItem("products", JSON.stringify( products ))
 
+        // Actulizamos el carrito en firebase
+        updateFirebase( products )
+
         dispatch({
             type: UPDATE_PRODUCT,
             payload: products
@@ -110,11 +116,19 @@ const ShoppingListState = ({ children }) => {
         // Eliminar de localStorage
         localStorage.removeItem("products")
 
-        // Marcar en firebase como comprada
+        // Borrar de firebase
 
         dispatch({
             type: EMPTY_CART,
         })
+    }
+
+    // Actualizar firebase
+    const updateFirebase = products => {
+
+        if ( currentUser ) 
+            firebase.addDocument("shoppingCar", currentUser.uid, { shoppingList: products}, true)
+
     }
 
     return ( 
