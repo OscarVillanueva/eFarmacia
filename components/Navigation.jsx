@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import Search from './Search';
 import ShoppingList from './ShoppingList';
+import FirebaseContext from '../firebase/context';
+import firebase from '../firebase/firebase';
 
 const Nav = ({ full, top }) => {
+
+    // Sacamos el usuario logeado
+    const firebaseContext = useContext( FirebaseContext )
+    const { currentUser } = firebaseContext
+
+    const handleClick = () => {
+        firebase.signout()
+    }
 
     return ( 
         <div
@@ -24,20 +34,45 @@ const Nav = ({ full, top }) => {
             )}
 
             <div className = "flex items-center">
-                <Link href = "/login" >
-                    <a 
-                        className = { `py-2 px-4 text-center mr-2 
-                        ${ full ? 'bg-gray-200  text-gray-800 rounded' : 'text-gray-200'}` }>
-                        Login
-                    </a>
-                </Link>
-                <Link href = "/signup" >
-                    <a 
-                        className = { `py-2 px-4 text-center mr-2 
-                        ${ full ? 'bg-orange-700 text-gray-200 rounded' : 'text-gray-200'}` }>
-                        Registro
-                    </a>
-                </Link>
+
+                { currentUser 
+                    ? (
+                        <>
+                            <p 
+                                className = {`mr-2 lg:mb-0 ${full ? 'text-gray-800' : 'text-gray-200'}`}
+                            >
+                                    Hola: { currentUser.displayName }
+                            </p>
+                            <button
+                               className = { `py-2 px-4 text-center mr-2 
+                               ${ full ? 'bg-gray-200  text-gray-800 rounded' : 'text-gray-200'}` }
+                                type = "button"
+                                onClick = { handleClick }
+                            >
+                                Salir
+                            </button>
+                        </>
+                    ) 
+                    : (
+                        <>
+                            <Link href = "/login" >
+                                <a 
+                                    className = { `py-2 px-4 text-center mr-2 
+                                    ${ full ? 'bg-gray-200  text-gray-800 rounded' : 'text-gray-200'}` }>
+                                    Login
+                                </a>
+                            </Link>
+                            <Link href = "/signup" >
+                                <a 
+                                    className = { `py-2 px-4 text-center mr-2 
+                                    ${ full ? 'bg-orange-700 text-gray-200 rounded' : 'text-gray-200'}` }>
+                                    Registro
+                                </a>
+                            </Link>
+                        </>
+                    )
+                }
+
 
                 { top && (
                     <ShoppingList full = { full } />

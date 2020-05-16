@@ -1,10 +1,21 @@
-import WhishListState from '../context/ShoppingListState';
+import ShoppingListState from '../context/ShoppingListState';
+import FirebaseContext from '../firebase/context';
+import useAuth from '../hooks/useAuth';
 
 const Init = ({ Component, pageProps }) => {
+
+    const currentUser = useAuth()
+
     return ( 
-        <WhishListState>
-            <Component { ...pageProps } />
-        </WhishListState>
+        <ShoppingListState>
+            <FirebaseContext.Provider
+                value = {{
+                    currentUser
+                }}
+            >
+                <Component { ...pageProps } />
+            </FirebaseContext.Provider>
+        </ShoppingListState>
     );
 }
  
