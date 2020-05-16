@@ -16,7 +16,6 @@ const ShoppingListState = ({ children }) => {
 
     const initialState = {
         products: [],
-        client: {},
         total: 0
     }
 
@@ -51,18 +50,18 @@ const ShoppingListState = ({ children }) => {
 
     // Cargar los productos
     const loadProducts = () => {
-        let products = []
 
-        if ( Object.keys(state.client).length === 0 || !state.client)
-            products = JSON.parse(localStorage.getItem("products"))
+        if ( !currentUser ){
+            console.log("desde lcoal");
+            const products = JSON.parse(localStorage.getItem("products"))
+
+            dispatch({
+                type: LOAD_PRODUCTS,
+                payload: products ? products : []
+            })
+        }
         else
-            products = [] // descargar de firebase
-
-        dispatch({
-            type: LOAD_PRODUCTS,
-            payload: products ? products : []
-        })
-
+            fetchShoppingListFromFirebase()
     }
 
     // Borrar un producto del carrito
@@ -129,6 +128,32 @@ const ShoppingListState = ({ children }) => {
 
         if ( currentUser ) 
             firebase.addDocument("shoppingCar", currentUser.uid, { shoppingList: products}, true)
+
+    }
+
+    // Descargar el carrito de firebase
+    const fetchShoppingListFromFirebase = () => {
+
+        firebase.db.collection("shoppingCar").onSnapshot( snapShot => {
+
+            const products = snapShot.docs.map(doc => {
+                return {
+                    ...doc.data()
+                }
+            })
+
+            let productList = []
+
+            if(products.length > 0) {
+                productList = products[0].shoppingList
+            }
+
+            dispatch({
+                type: LOAD_PRODUCTS,
+                payload: productList 
+            })
+
+        })
 
     }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import Head from 'next/head';
 import { useRouter } from "next/router";
 import ShoppingListContext from '../context/ShoppingListContext';
+import FirebaseContext from '../firebase/context';
 import FullHeader from './FullHeader';
 import Nav from './Navigation';
 
@@ -14,11 +15,15 @@ const Layout = ({ children }) => {
     const shoppingListContext = useContext(ShoppingListContext)
     const { loadProducts } = shoppingListContext
 
+    // Cargar el usuario
+    const firebaseContext = useContext(FirebaseContext)
+    const { currentUser } = firebaseContext
+
     useEffect(() => {
 
         loadProducts()
         
-    }, [])
+    }, [currentUser])
 
     return ( 
         <>

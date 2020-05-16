@@ -2,6 +2,8 @@ import React from 'react';
 
 const Shopping = ({ product }) => {
 
+    if( !product || Object.keys(product).length === 0 ) return null
+
     const { name, price, short_description, images: [ image ] } = product
 
     // Quitamos <p></p> que vienen por defecto de la API
