@@ -31,3 +31,4 @@ next.config.js
 .env.test.local
 .env.production.local
 variables.env
+.vercel
